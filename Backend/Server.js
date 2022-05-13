@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use("/public", express.static("./../Frontend/public"));
+
 app.listen(process.env.PORT || 80);
 
 app.get('/', function (req, res) {
@@ -19,7 +20,13 @@ app.get('/', function (req, res) {
 });
 
 app.post('/home', (req, res) => {
-        if(req.body.email == "test" && req.body.password == "test"){
+        if(req.body.email == "test@gmail.com" && req.body.password == "test"){
             res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
         }
+        else{
+            res.end("Yanlis sifre");
+        }
 });
+
+//export {app};
+
