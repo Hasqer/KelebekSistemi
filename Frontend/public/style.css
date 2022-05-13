@@ -1,0 +1,31 @@
+.loginBox{
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.loginBox form{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginBox input{
+    font-size: 20px;
+    border-radius: 3px;
+    width: 250px;
+    border: 1px solid black;
+}
+
+.loginBox button{
+    width: 250px;
+    height: 30px;
+    margin-top: 30px;
+    font-size: 20px;
+}

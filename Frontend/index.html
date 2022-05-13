@@ -9,8 +9,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 <body>
-    <div id="app">
-        {{message}}
+    <div class="loginBox">
+        <form action="/home" method="post">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button>Giriş Yap</button>
+        </form>
     </div>
 
     <script src="public/script.js"></script>
