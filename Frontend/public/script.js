@@ -15,9 +15,7 @@ var app = new Vue({
                 body:JSON.stringify(mydata),
                 headers:{"Content-type":"application/json"}
             })
-            .then(response => response.json())
-            .then(json => console.log(json))
-            .catch(err => console.log(err));
+            .then(response => alert(response))
         }
     }
 })
