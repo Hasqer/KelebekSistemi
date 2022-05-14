@@ -25,6 +25,7 @@ app.post('/checkUser', (req, res) => {
     }
     else{
         res.send({check : "False"});
+        console.log(req.body);
     }
 });
 
