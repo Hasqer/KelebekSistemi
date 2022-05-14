@@ -39,8 +39,6 @@ app.post('/getUser', (req, res) => {
 
 
 
-
-//export {app};
 /*
 var mysql = require('mysql');
 
@@ -60,4 +58,4 @@ con.connect(function(err) {
     console.log("Table created");
   });
 });
-/*
+*/
