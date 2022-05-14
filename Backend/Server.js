@@ -2,31 +2,62 @@ var express = require("express");
 var app = express();
 const path = require('path');
 var bodyParser = require("body-parser");
-
-
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
-
-//var fs = require("fs");
+var mysql = require('mysql');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use("/public", express.static("./../Frontend/public"));
-
 app.listen(process.env.PORT || 80);
+
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
 });
 
-app.post('/home', (req, res) => {
-        if(req.body.email == "test@gmail.com" && req.body.password == "test"){
-            res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
-        }
-        else{
-            res.end("Yanlis sifre");
-        }
+app.get('/home', (req, res) => {
+        res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
 });
 
-//export {app};
+app.post('/checkUser', (req, res) => {
+    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
+       res.send({check : "True"});
+       console.log(req.body);
+    }
+    else{
+        res.send({check : "False"});
+    }
+});
 
+app.post('/getUser', (req, res) => {
+    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
+        res.send({userInfo : "Abdurrahman Rasim"});
+    }
+    else{
+        res.send({userInfo : "False"});
+    }
+});
+
+
+
+
+//export {app};
+/*
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "admin123",
+  database: "mydb"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = "CREATE TABLE users (id bigint(20) primary key identity,name VARCHAR(255),surname VARCHAR(255), email VARCHAR(255), phone VARCHAR(255), created_time date, modified_time date, premium bit)";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("Table created");
+  });
+});
+/*
