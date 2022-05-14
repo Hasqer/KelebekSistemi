@@ -5,6 +5,7 @@ var app = new Vue({
     },
     methods:{
         button(){
+            alert("methoda girdim");
             var mydata ={
                 email:"test@gmail.com",
                 password:"test"
@@ -15,7 +16,8 @@ var app = new Vue({
                 headers:{"Content-type":"application/json"}
             })
             .then(response => response.json())
-            .then(status => alert(status))
+            .then(json => console.log(json))
+            .catch(err => console.log(err));
         }
     }
 })
