@@ -1,12 +1,18 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .loginBox{
     width: 300px;
     height: 300px;
     border: 1px solid black;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
+    border-radius: 4px;
 }
 
-.loginBox form{
+.loginBox{
     width: 300px;
     height: 300px;
     display: flex;
@@ -23,9 +29,19 @@
     border: 1px solid black;
 }
 
-.loginBox button{
+.loginBox .button{
     width: 250px;
     height: 30px;
     margin-top: 30px;
     font-size: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.loginBox span{
+    font-size: 30px;
 }
