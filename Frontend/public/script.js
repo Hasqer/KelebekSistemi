@@ -5,7 +5,8 @@ var app = new Vue({
         UserInputpassword: "",
         UserInputpassword2:"",
         singStatus:true,
-        warning1:""
+        warning1:"",
+        rememberChacked:false
     },
     methods: {
         CheckUser() {
@@ -15,7 +16,6 @@ var app = new Vue({
             }
             this.ConvertHash(this.UserInputpassword).then((hash) => { // şifrenin hash'e çevrilmesi
                 mydata.password = hash;
-                console.log(mydata);
                 fetch("/checkUser", { // kullanıcı bilgi kontrolü
                     method: "post",
                     body: JSON.stringify(mydata),
@@ -23,9 +23,10 @@ var app = new Vue({
                 })
                     .then(response => response.json())
                     .then(json => {
-                        alert(json.check)
                         if(json.check == "true"){//kullanıcı bilgileri doğru ve kaydediliyor
-                            document.cookie = document.cookie = "email="+mydata.email+",password="+mydata.password+"; expires=Sun, 25 Nov "+(new Date().getFullYear()+1)+" 10:00:00 UTC; path=/";//cookie oluşturma
+                            if(this.rememberChacked)document.cookie = document.cookie = "email="+mydata.email+",password="+mydata.password+"; expires=Sun, 25 Nov "+(new Date().getFullYear()+1)+" 10:00:00 UTC; path=/";//cookie oluşturma (kalıcı)
+                            else document.cookie = document.cookie = "email="+mydata.email+",password="+mydata.password+"; path=/";//cookie oluşturma (tarayıcı kapanana kadar)
+                            window.location.href="/home";
                         }
                         else{//kullanıcı bilgileri yanlış
                             alert("Kullanıcı bilgileri yanlış!");
@@ -51,5 +52,8 @@ var app = new Vue({
             if(this.UserInputpassword == this.UserInputpassword2) this.warning1="";
             else this.warning1="Şifreler Aynı Değil!";
         }
-    }
+    },
+    created() {
+        if(document.cookie.length > 0) window.location.href="/home";
+    },
 })

@@ -4,12 +4,17 @@ var app = new Vue({
         message:""
     },
     methods:{
-
+        cookieDelete(){
+            document.cookie = document.cookie+"; expires=Sun, 25 Nov 2000 10:00:00 UTC;"
+        }
     },
     created() {
+        var cookie = document.cookie.split(",");
+        cookie[0] = cookie[0].split("=");
+        cookie[1] = cookie[1].split("=");
         mydata={
-            email:"test@gmail.com",
-            password:"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+            email:cookie[0][1],
+            password:cookie[1][1]
         }
         fetch("/getuser",{
             method:"post",
