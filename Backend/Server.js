@@ -63,9 +63,9 @@ app.post('/getCustomer', (req, res) => {
 
 app.post('/createCustomer', (req, res) => {
 
-  if(nameInfo && surnameInfo && emailInfo && emailVerificationCodeInfo && passwordInfo){
+  if(req.body.nameInfo && req.body.surnameInfo && req.body.emailInfo && req.body.passwordInfo){
     const randomVerificationCode = randomHash.generateHash({ length: 15 });
-    createCustomer(nameInfo,surnameInfo,emailInfo,randomVerificationCode,passwordInfo);
+    createCustomer(req.body.nameInfo,req.body.surnameInfo,req.body.emailInfo,randomVerificationCode,req.body.passwordInfo);
     res.send({ check: 'true' }); //Successful SignUp
     //CODE MAİL WILL SEND HERE
   }
@@ -146,28 +146,32 @@ function createCustomer(nameInfo, surnameInfo, emailInfo,emailVerificationCodeIn
 
 
 function emailVerificationCheck(emailVerificationCodeCheck) {
-  console.log("Girdi");
-  db.once("open", function (status) {
-    console.log('Connection Successful! (emailVerificationCheck)');
-    // define Schema
-    var customersSchema = mongoose.Schema({
-      name: String,
-      surname: String,
-      email: String,
-      emailVerificationBool:Boolean,
-      emailVerificationCode:String,
-      password: String,
-      paidCustomer:Boolean,
-      licenseDeadline:Date,
-      created_time: Date
-    });
-    console.log("iki adım kaldı");
-    // compile schema to model
-    var customer = mongoose.model('Customer', customersSchema, 'customers');
-    console.log("Bir adım kaldı");
-    //Check from database
+  
+
+
+
+  mongoDb.connect(url,function(err,client){
+    const db = client.db("KelebekSistemi");
+    var verifiedEmail 
+    db.collection("customers").updateOne({ email: emailInfo, password: passwordInfo },(err,data)=>{
+    if(data){
+        var getCustomerJSON = {name: data.name,surname:data.surname,created_time:data.created_time};
+        return callback(getCustomerJSON);
+    }
+    else{
+        callback('false');
+    }
+  });
+})};
+
+
+
+
+/*
+
+
     var customerInfo = customer.findOneAndUpdate({ emailVerificationCode:emailVerificationCodeCheck },{$set:{emailVerificationBool:false,emailVerificationCode:"Verified"}}, function (err, data) {
       console.log("Onaylandı");
     });
   })};
- 
+ */
