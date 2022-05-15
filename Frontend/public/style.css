@@ -5,16 +5,20 @@
 
 .loginBox{
     width: 300px;
-    height: 300px;
+    height: 350px;
     border: 1px solid black;
     margin: auto;
     margin-top: 40px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.loginBox{
-    width: 300px;
-    height: 300px;
+.SingContainer{
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -22,7 +26,7 @@
     justify-content: center;
 }
 
-.loginBox input{
+.SingContainer input{
     font-size: 20px;
     border-radius: 3px;
     width: 250px;
@@ -30,7 +34,7 @@
     padding-left: 5px;
 }
 
-.loginBox .button{
+.SingContainer .button{
     width: 250px;
     height: 30px;
     margin-top: 30px;
@@ -43,6 +47,45 @@
     border-radius: 4px;
 }
 
-.loginBox span{
+
+.loginBox > span{
     font-size: 30px;
+    margin-top: 10px;
+}
+
+.LoginBoxInformation{
+    font-size: 20px;
+    color:#666;
+}
+
+.warningMessageBox{
+    font-size: 12px;
+    color:red;
+    height: 15px;
+    width: auto;
+}
+
+.rememberMeButton{
+    width: 250px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0px;
+    user-select: none;
+    font-size: 14px;
+    margin-top: -7px;
+}
+
+.rememberMeButton span{
+    margin: 0px;
+    background-color: blue;
+}
+
+.rememberMeButton input[type="checkbox"]{
+    margin: 0px;
+    border: 1px solid black;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
 }

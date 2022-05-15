@@ -1,8 +1,11 @@
 var app = new Vue({
-    el: ".loginBox",
+    el: "#app",
     data: {
         UserInputEmail: "",
-        UserInputpassword: ""
+        UserInputpassword: "",
+        UserInputpassword2:"",
+        singStatus:true,
+        warning1:""
     },
     methods: {
         CheckUser() {
@@ -19,12 +22,11 @@ var app = new Vue({
                 })
                     .then(response => response.json())
                     .then(json => {
-                        if(json == true){//kullanıcı bilgilerinin doğru
-                            document.cookie = "{email:'"+mydata.email+"',password:'"+mydata.password+"'}; path=/";//cookie oluşturma
+                        if(json == true){//kullanıcı bilgileri doğru ve kaydediliyor
+                            document.cookie = document.cookie = "email="+mydata.email+",password="+mydata.password+"; expires=Sun, 25 Nov "+(new Date().getFullYear()+1)+" 10:00:00 UTC; path=/";//cookie oluşturma
                         }
                         else{//kullanıcı bilgileri yanlış
-                            console.log(JSON.parse(document.cookie.toString()));//cooki okuma işlemi testinin yapılacağı yer
-                            //burada cookie işlemini yapma burası şifrenin yanlış olduğu yer
+                            alert("Kullanıcı bilgileri yanlış!");
                         }
                     })
             });
@@ -38,6 +40,14 @@ var app = new Vue({
                     .join('');
                 return hashHex;
             });
+        },
+        giris(){//giriş veya kayıt olma kısmının seçilmesi
+            this.singStatus = !this.singStatus;
+            console.log(this.singStatus);
+        },
+        checkSingInPassword(){//iki şifrenin doğruluğu kontrol ediliyor
+            if(this.UserInputpassword == this.UserInputpassword2) this.warning1="";
+            else this.warning1="Şifreler Aynı Değil!";
         }
     }
 })

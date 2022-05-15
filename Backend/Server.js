@@ -4,38 +4,38 @@ const path = require('path');
 var bodyParser = require("body-parser");
 var mysql = require('mysql');
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/public", express.static("./../Frontend/public"));
 app.listen(process.env.PORT || 80);
 
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
+  res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
 });
 
 app.get('/home', (req, res) => {
-        res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
+  res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
 });
 
 app.post('/checkUser', (req, res) => {
-    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
-       res.send({check : "True"});
-       console.log(req.body);
-    }
-    else{
-        res.send({check : "False"});
-        console.log(req.body);
-    }
+  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+    res.send({ check: "True" });
+    console.log(req.body);
+  }
+  else {
+    res.send({ check: "False" });
+    console.log(req.body);
+  }
 });
 
 app.post('/getUser', (req, res) => {
-    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
-        res.send({userInfo : "Abdurrahman Rasim"});
-    }
-    else{
-        res.send({userInfo : "False"});
-    }
+  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+    res.send({ userInfo: "Abdurrahman Rasim" });
+  }
+  else {
+    res.send({ userInfo: "False" });
+  }
 });
 
 
