@@ -16,12 +16,12 @@ var app = new Vue({
             email:cookie[0][1],
             password:cookie[1][1]
         }
-        fetch("/getuser",{
+        fetch("/getCustomer",{
             method:"post",
             body:JSON.stringify(mydata),
             headers:{"Content-type":"application/json"}
         })
         .then(response => response.json())
-        .then(json => this.message = json.userInfo)
+        .then(json => this.message = json.name +" "+json+surname)
     }
 })

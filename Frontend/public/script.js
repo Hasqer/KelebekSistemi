@@ -16,7 +16,7 @@ var app = new Vue({
             }
             this.ConvertHash(this.UserInputpassword).then((hash) => { // şifrenin hash'e çevrilmesi
                 mydata.password = hash;
-                fetch("/checkUser", { // kullanıcı bilgi kontrolü
+                fetch("/checkCustomer", { // kullanıcı bilgi kontrolü
                     method: "post",
                     body: JSON.stringify(mydata),
                     headers: { "Content-type": "application/json" }
