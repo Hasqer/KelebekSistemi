@@ -17,15 +17,17 @@
                 <input type="email" name="email" placeholder="Email" v-model="UserInputEmail">
                 <input type="password" name="password" placeholder="Password" v-model="UserInputpassword">
                 <div class="rememberMeButton"><input type="checkbox" name="" v-model="rememberChacked" id="rememberMeCheckBox"><label for="rememberMeCheckBox"> Beni Hatırla</label></div>
-                <div class="button" @click="CheckUser()">Giriş</div>
+                <div class="button" @click="CheckCustomer()">Giriş</div>
             </div>
             <div class="SingContainer" v-if="!singStatus">
                 <span class="LoginBoxInformation">Kayıt Ol</span>
+                <input type="text" name="email" placeholder="Ad" v-model="customerName">
+                <input type="text" name="email" placeholder="Soyad" v-model="customerSurname">
                 <input type="email" name="email" placeholder="Email" v-model="UserInputEmail">
                 <input type="password" name="password" placeholder="Password" v-model="UserInputpassword">
                 <input type="password" name="password" placeholder="Password" v-model="UserInputpassword2" @keypress="checkSingInPassword()">
                 <span class="warningMessageBox">{{warning1}}</span>
-                <div class="button" @click="CheckUser()">Kayıt Ol</div>
+                <div class="button" @click="CreateCustomer()">Kayıt Ol</div>
             </div>
         </div>
         <button @click="giris">Giriş</button>

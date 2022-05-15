@@ -22,6 +22,6 @@ var app = new Vue({
             headers:{"Content-type":"application/json"}
         })
         .then(response => response.json())
-        .then(json => this.message = json.name +" "+json+surname)
+        .then(json => this.message = json.name +" "+json.surname+"\n"+json.created_time)
     }
 })
