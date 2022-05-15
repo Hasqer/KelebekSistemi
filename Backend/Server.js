@@ -1,15 +1,30 @@
+//Variables
 var express = require("express");
 var app = express();
 const path = require('path');
 var bodyParser = require("body-parser");
-var mysql = require('mysql');
+var mongoose = require("mongoose");
+const { query } = require("express");
+const { once } = require("events");
+const { Console } = require("console");
 
+//Default settings
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use("/public", express.static("./../Frontend/public"));
 app.listen(process.env.PORT || 80);
+main().catch(err => console.log(err));
+async function main() {
+  await mongoose.connect('mongodb+srv://admin:Password12@cluster0.uqoht.mongodb.net/KelebekSistemi?retryWrites=true&w=majority');
+}
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 
+
+
+//Redirects
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
 });
@@ -18,7 +33,7 @@ app.get('/home', (req, res) => {
         res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
 });
 
-app.post('/checkUser', (req, res) => {
+app.post('/checkCustomer', (req, res) => {
     if(req.body.email == "test@gmail.com" && req.body.password == "test"){
        res.send({check : "True"});
        console.log(req.body);
@@ -28,7 +43,7 @@ app.post('/checkUser', (req, res) => {
     }
 });
 
-app.post('/getUser', (req, res) => {
+app.post('/getCustomerInfo', (req, res) => {
     if(req.body.email == "test@gmail.com" && req.body.password == "test"){
         res.send({userInfo : "Abdurrahman Rasim"});
     }
@@ -37,25 +52,74 @@ app.post('/getUser', (req, res) => {
     }
 });
 
-
-
-/*
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "admin123",
-  database: "mydb"
+var check = checkUser('test@gmail.com','test');
+check.then(function(result) {
+    console.log(result);
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "CREATE TABLE users (id bigint(20) primary key identity,name VARCHAR(255),surname VARCHAR(255), email VARCHAR(255), phone VARCHAR(255), created_time date, modified_time date, premium bit)";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-});
-*/
+
+
+async function checkUser(emailInfo,passwordInfo){
+var status = '11111';
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(status) {
+    console.log("Connection Successful!");
+
+    // define Schema
+    var customersSchema = mongoose.Schema({
+      name: String,
+      surname: String,
+      email: String,
+      password: String,
+      created_time:Date
+    });
+
+    // compile schema to model
+    var customer = mongoose.model('Customer', customersSchema, 'customers');
+
+    //Check
+    var customerInfo = customer.findOne({ email: emailInfo, password:passwordInfo }).exec();
+    customerInfo.then(function(result) {
+        if(result){
+            status = 'False';
+            console.log("girdi");
+        }
+        else
+            status = 'False';
+     });
+})
+console.log("bir daha girdi");
+
+return status;
+};
+
+
+function createUser(nameInfo,surnameInfo,emailInfo,passwordInfo){
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+ 
+    db.once('open', function() {
+        console.log("Connection Successful!");
+         
+        // define Schema
+        var customersSchema = mongoose.Schema({
+          name: String,
+          surname: String,
+          email: String,
+          password: String,
+          created_time:Date
+        });    
+    
+        // compile schema to model
+        var customer = mongoose.model('Customer', customersSchema, 'customers');
+        
+        // new a document instance
+        var customer1 = new customer({ name: nameInfo,surname : surnameInfo,email: emailInfo, password: passwordInfo,created_time: Date.now()});
+        // save model to database
+        customer1.save(function (err, customer) {
+          if (err) return console.error(err);
+          console.log(customer.name + " saved to customer collection.");
+        });
+    })
+
+};
