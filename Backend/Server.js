@@ -4,9 +4,6 @@ var app = express();
 const path = require('path');
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-const { query } = require("express");
-const { once } = require("events");
-const { Console } = require("console");
 
 //Default settings
 app.use(bodyParser.urlencoded({extended:false}));
@@ -26,30 +23,31 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //Redirects
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
+  res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
 });
 
 app.get('/home', (req, res) => {
-        res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
+  res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
 });
 
-app.post('/checkCustomer', (req, res) => {
-    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
-       res.send({check : "True"});
-       console.log(req.body);
-    }
-    else{
-        res.send({check : "False"});
-    }
+app.post('/checkUser', (req, res) => {
+  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+    res.send({ check: "True" });
+    console.log(req.body);
+  }
+  else {
+    res.send({ check: "False" });
+    console.log(req.body);
+  }
 });
 
-app.post('/getCustomerInfo', (req, res) => {
-    if(req.body.email == "test@gmail.com" && req.body.password == "test"){
-        res.send({userInfo : "Abdurrahman Rasim"});
-    }
-    else{
-        res.send({userInfo : "False"});
-    }
+app.post('/getUser', (req, res) => {
+  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+    res.send({ userInfo: "Abdurrahman Rasim" });
+  }
+  else {
+    res.send({ userInfo: "False" });
+  }
 });
 
 var check = checkUser('test@gmail.com','test');
