@@ -88,7 +88,7 @@ app.get('/emailVerification/:verificationCodeCheck', (req, res) => {
 
 //Functions
 function checkCustomer(emailInfo, passwordInfo, callback) {
-  mongoDb.connect(url,function(err,client){
+    mongoDb.connect(url,function(err,client){
     const db = client.db("KelebekSistemi");
     db.collection("customers").findOne({ email: emailInfo, password: passwordInfo },(err,data)=>{
     if(data)
@@ -99,71 +99,30 @@ function checkCustomer(emailInfo, passwordInfo, callback) {
   })};
 
 
-
-
 function getCustomer(emailInfo, passwordInfo,callback)
 {
-  console.log('girid');
-  db.once('open', function (status) {
-    console.log('Connection Successful!');
-    // define Schema
-    var customersSchema = mongoose.Schema({
-      name: String,
-      surname: String,
-      email: String,
-      emailVerificationBool:Boolean,
-      emailVerificationCode:String,
-      password: String,
-      paidCustomer:Boolean,
-      licenseDeadline:Date,
-      created_time: Date
-    });
 
-    // compile schema to model
-    var customer = mongoose.model('Customer', customersSchema, 'customers');
-    //Check from database
-    var customerInfo = customer.findOne({ email: emailInfo, password: passwordInfo }, function (err, data) {
-      if(data){
-        //return callback(data.name,data.surname,created_time);
+  mongoDb.connect(url,function(err,client){
+    const db = client.db("KelebekSistemi");
+    db.collection("customers").findOne({ email: emailInfo, password: passwordInfo },(err,data)=>{
+    if(data){
         var getCustomerJSON = {name: data.name,surname:data.surname,created_time:data.created_time};
         return callback(getCustomerJSON);
-      }
-      else{
-        return callback('false');
-        /*
-        getCustomer('test@gmail.com','test',function(result) {
-          res.send(result);
-        });
-        */
-      }});
+    }
+    else{
+        callback('false');
+    }
+  });
   })};
+
 
 
 function createCustomer(nameInfo, surnameInfo, emailInfo,emailVerificationCodeInfo, passwordInfo) {
 
-  db.on('error', console.error.bind(console, 'connection error:'));
 
-  db.once('open', function () {
-    console.log('Connection Successful!');
-
-    // define Schema
-    var customersSchema = mongoose.Schema({
-      name: String,
-      surname: String,
-      email: String,
-      emailVerificationBool:Boolean,
-      emailVerificationCode:String,
-      password: String,
-      paidCustomer:Boolean,
-      licenseDeadline:Date,
-      created_time: Date
-    });
-
-    // compile schema to model
-    var customer = mongoose.model('Customer', customersSchema, 'customers');
-
-    // new a document instance
-    var customer1 = new customer({ 
+    mongoDb.connect(url,function(err,client){
+    const db = client.db("KelebekSistemi");
+    var customerObj = {
       name: nameInfo,
       surname: surnameInfo,
       email: emailInfo,
@@ -172,15 +131,18 @@ function createCustomer(nameInfo, surnameInfo, emailInfo,emailVerificationCodeIn
       password: passwordInfo,
       paidCustomer:false,
       licenseDeadline:"",
-      created_time: Date.now()
-         });
-    // save model to database
-    customer1.save(function (err, customer) {
-      if (err) return console.error(err);
-      console.log(customer.name + ' saved to customer collection.');
-    });
-  })
-};
+      created_time: Date.now()};
+    db.collections("customers").insertOne(customerObj,(err,data)=>{
+    if(data){
+        
+        return callback(getCustomerJSON);
+    }
+    else{
+        callback('false');
+    }
+  });
+  })};
+
 
 
 function emailVerificationCheck(emailVerificationCodeCheck) {
