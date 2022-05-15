@@ -9,9 +9,7 @@ const nodeMailer = require('nodemailer');
 const domain = "localhost";
 
 //Main settings
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/public', express.static('./../Frontend/public'));
 app.listen(process.env.PORT || 80);
@@ -84,20 +82,14 @@ app.post('/getCustomer', (req, res) => {
 
 app.post('/createCustomer', (req, res) => {
 
-  if (req.body.nameInfo && req.body.surnameInfo && req.body.emailInfo && req.body.passwordInfo) {
-    const randomVerificationCode = randomHash.generateHash({
-      length: 15
-    });
+  if (req.body.nameInfo!="" && req.body.surnameInfo!="" && req.body.emailInfo!="" && req.body.passwordInfo!="") {
+    const randomVerificationCode = randomHash.generateHash({length: 15});
     createCustomer(req.body.nameInfo, req.body.surnameInfo, req.body.emailInfo, randomVerificationCode, req.body.passwordInfo);
-    res.send({
-      check: 'true'
-    }); //Successful SignUp
-    verificationMailSend("http://" + domain + "/emailVerification/" + randomVerificationCode);
-
-  } else {
-    res.send({
-      check: 'false'
-    }); //Failed SignUp
+    verificationMailSend("http://" + domain + "/emailVerification/" + randomVerificationCode,req.body.emailInfo);
+    res.send({check: 'true'}); //Successful SignUp
+  }
+  else {
+    res.send({check: 'false'}); //Failed SignUp
   }
 });
 
@@ -115,6 +107,11 @@ app.get('/emailVerification/:emailVerificationCode', (req, res) => {
       });
   });
 });
+
+
+
+
+
 
 
 
@@ -152,6 +149,10 @@ function getCustomer(emailInfo, passwordInfo, callback) {
         var getCustomerJSON = {
           name: data.name,
           surname: data.surname,
+          email:data.email,
+          emailVerificationBool:data.emailVerificationBool,
+          paidCustomer:data.paidCustomer,
+          licenseDeadline:data.licenseDeadline,
           created_time: data.createdTime
         };
         return callback(getCustomerJSON);
@@ -175,18 +176,17 @@ function createCustomer(nameInfo, surnameInfo, emailInfo, emailVerificationCodeI
     password: passwordInfo,
     paidCustomer: false,
     licenseDeadline: "",
-    createdTime: Date.now()
+    createdTime: Date(Date.now())
   };
 
-  mongoDb.connect(url, function (err, db) {
+  mongoDb.connect(url, function (err, client) {
     if (err) throw err;
-    var dbo = db.db("KelebekSistemi");
+    var db = client.db("KelebekSistemi");
 
-    dbo.collection("customers").insertOne(customerObj, (error, islem) => {
-
+    db.collection("customers").insertOne(customerObj, (error, data) => {
       if (err) throw err;
       console.log("1 document inserted");
-      db.close();
+      client.close();
     });
   });
 };
@@ -210,14 +210,14 @@ function emailVerificationCheck(emailVerificationCodeCheck, callback) {
   })
 };
 
-function verificationMailSend(verificationLink) {
+function verificationMailSend(verificationLink,verificationMail) {
 
   let mailDetails = {
     from: 'Kelebek Sistemi <kelebeksistem@gmail.com>',
-    to: 'ozanayrikan@gmail.com',
-    subject: 'Kelebek Sistemi e-Posta adresinizi doğrulayın',
-    text: `kelebek sistemi e-posta adresinizi doğrulayın 
-    link = ` + verificationLink
+    to: verificationMail,
+    subject: 'Kelebek Sistemi e-posta adresinizi doğrulayın',
+    text: `Kelebek Sistemi e-posta adresinizi doğrulamak için aşağıdaki linke tıklayabilirsiniz. 
+    Doğrulama Linki = ` + verificationLink
   };
 
   mailTransporter.sendMail(mailDetails, function (err, data) {
