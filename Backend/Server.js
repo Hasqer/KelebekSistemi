@@ -32,7 +32,7 @@ app.get('/home', (req, res) => {
 });
 
 app.post('/checkUser', (req, res) => {
-  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+  if (req.body.email == "test@gmail.com" && req.body.password == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08") {
     res.send({ check: "True" });
     console.log(req.body);
   }
@@ -43,7 +43,7 @@ app.post('/checkUser', (req, res) => {
 });
 
 app.post('/getUser', (req, res) => {
-  if (req.body.email == "test@gmail.com" && req.body.password == "test") {
+  if (req.body.email == "test@gmail.com" && req.body.password == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08") {
     res.send({ userInfo: "Abdurrahman Rasim" });
   }
   else {
@@ -57,7 +57,7 @@ check.then(function (result) {
 });
 */
 
-console.log(checkUser("test@gmail.com","test"));
+console.log(checkUser("test@gmail.com","9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"));
 
 function checkUser(emailInfo, passwordInfo) {
   var status = '11111';
@@ -79,10 +79,10 @@ function checkUser(emailInfo, passwordInfo) {
     var customerInfo = customer.findOne({ email: emailInfo, password: passwordInfo });
     customerInfo.exec(()=>{
       
-    });
+    });/*
     customerInfo.then(result => {
         console.log(result);
-    });
+    });*/
     /*
     customerInfo.then(result => {
       if (result) {
