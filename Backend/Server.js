@@ -33,11 +33,11 @@ app.get('/home', (req, res) => {
 
 app.post('/checkUser', (req, res) => {
   if (req.body.email == "test@gmail.com" && req.body.password == "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08") {
-    res.send({ check: "True" });
+    res.send({ check: "true" });
     console.log(req.body);
   }
   else {
-    res.send({ check: "False" });
+    res.send({ check: "false" });
     console.log(req.body);
   }
 });

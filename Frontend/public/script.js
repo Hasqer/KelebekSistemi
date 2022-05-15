@@ -23,8 +23,8 @@ var app = new Vue({
                 })
                     .then(response => response.json())
                     .then(json => {
-                        alert(json)
-                        if(json.check == true){//kullanıcı bilgileri doğru ve kaydediliyor
+                        alert(json.check)
+                        if(json.check == "true"){//kullanıcı bilgileri doğru ve kaydediliyor
                             document.cookie = document.cookie = "email="+mydata.email+",password="+mydata.password+"; expires=Sun, 25 Nov "+(new Date().getFullYear()+1)+" 10:00:00 UTC; path=/";//cookie oluşturma
                         }
                         else{//kullanıcı bilgileri yanlış
