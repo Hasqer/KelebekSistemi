@@ -16,7 +16,7 @@
                 <span class="LoginBoxInformation">Giriş</span>
                 <input type="email" name="email" placeholder="Email" v-model="UserInputEmail">
                 <input type="password" name="password" placeholder="Password" v-model="UserInputpassword">
-                <div class="rememberMeButton"><input type="checkbox" name="" id="rememberMeCheckBox"><label for="rememberMeCheckBox"> Beni Hatırla</label></div>
+                <div class="rememberMeButton"><input type="checkbox" name="" v-model="rememberChacked" id="rememberMeCheckBox"><label for="rememberMeCheckBox"> Beni Hatırla</label></div>
                 <div class="button" @click="CheckUser()">Giriş</div>
             </div>
             <div class="SingContainer" v-if="!singStatus">
