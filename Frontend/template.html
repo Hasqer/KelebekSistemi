@@ -1,0 +1,5 @@
+<!--Excel dosyasını upload etmek için kullanılan kısım-->
+<div class="DragdownUploadFileBox">
+    <input type="file" name="" id="studentExcelInputFile" @change="fileChange()" required>
+    <div :style="DragdownStyle" class="DragdownDesingElement">Öğrencileri Yüklemen İçin<br> Tıkla Yada Dosyayı Sürükle<br><br>{{DragdownMessage}}</div>
+</div>

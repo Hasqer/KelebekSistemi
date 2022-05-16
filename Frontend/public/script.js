@@ -62,7 +62,7 @@ var app = new Vue({
             }
             this.ConvertHash(this.UserInputpassword).then((hash) => { // şifrenin hash'e çevrilmesi
                 mydata.passwordInfo = hash;
-                fetch("/createCustomer", { //
+                fetch("/createCustomer", { //kullanıcı oluşturulması için veri sunucuya aktarılıyor
                     method: "post",
                     body: JSON.stringify(mydata),
                     headers: { "Content-type": "application/json" }

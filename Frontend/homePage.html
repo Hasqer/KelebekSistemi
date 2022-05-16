@@ -6,13 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="public/style2.css">
 </head>
 <body>
     <div id="app">
-        {{message}}
-        <button @click="cookieDelete()">Cookieyi Sil</button>
+        <!--<button @click="cookieDelete()">Cookieyi Sil</button>  Burası Çıkış Yap kısmına dahil olacak ve normal sayfaya aktarılacak-->
+        <div class="bannerBox">
+            <span>Kelebek Sistemi</span>
+            <span>{{message.name != null ? ("Hoşgeldin "+message.name+" "+message.surname):""}}</span>
+            <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
+        </div>
+        <div class="Menupage">
+            <span @click="pageNumber=1;">Öğrenciler<div :style="pageNumber != 1 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
+            <span @click="pageNumber=2;">Sınıflar<div :style="pageNumber != 2 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
+            <span @click="pageNumber=3;">Sınavlar<div :style="pageNumber != 3 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
+            <span @click="pageNumber=4;">Karma Oluştur<div :style="pageNumber != 4 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
+        </div>
     </div>
-    
     <script src="public/script2.js"></script>
 </body>
 </html>

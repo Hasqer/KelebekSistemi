@@ -1,11 +1,22 @@
 var app = new Vue({
     el:"#app",
     data:{
-        message:""
+        message:"",
+        DragdownStyle:"",
+        DragdownMessage:"Dosya Seçilmedi",
+        pageNumber:1
     },
     methods:{
         cookieDelete(){
             document.cookie = document.cookie+"; expires=Sun, 25 Nov 2000 10:00:00 UTC;"
+        },
+        fileChange(){
+            this.DragdownStyle = "background-color: green;color:white"
+            this.DragdownMessage = document.getElementById("studentExcelInputFile").files[0].name
+        },
+        ExitAccount(){
+            this.cookieDelete();
+            window.location.href="/";
         }
     },
     created() {
@@ -22,6 +33,6 @@ var app = new Vue({
             headers:{"Content-type":"application/json"}
         })
         .then(response => response.json())
-        .then(json => this.message = json.name +" "+json.surname+"\n"+json.created_time)
+        .then(json => this.message = json)
     }
 })
