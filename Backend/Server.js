@@ -6,6 +6,11 @@ var bodyParser = require('body-parser');
 var mongoDb = require('mongodb').MongoClient;
 const randomHash = require('random-hash');
 const nodeMailer = require('nodemailer');
+var XLSX = require("xlsx");
+var fs = require("fs");
+const { start } = require('repl');
+const { Console } = require('console');
+
 const domain = "localhost";
 
 //Main settings
@@ -25,6 +30,9 @@ let mailTransporter = nodeMailer.createTransport({
     pass: 'Butterfly123'
   }
 });
+
+
+
 
 
 
@@ -68,6 +76,7 @@ app.post('/getCustomer', (req, res) => {
   const password = req.body.password;
 
   checkCustomer(email, password, function (result) {
+
     if (result == 'true') {
       getCustomer(email, password, function (result) {
         res.send(result);
@@ -108,8 +117,19 @@ app.get('/emailVerification/:emailVerificationCode', (req, res) => {
   });
 });
 
-
-
+app.post('/studentsCreate', (req, res) => {
+  if(req.body.customerId !="" && req.body.studentsData !=""){
+    res.send({
+      check: 'true'
+    });
+  }
+  else{
+    res.send({
+      check: 'false'
+    });
+  }
+});
+//I will make relation createStudent and studentsCreate
 
 
 
@@ -146,7 +166,9 @@ function getCustomer(emailInfo, passwordInfo, callback) {
       password: passwordInfo
     }, (err, data) => {
       if (data) {
+        console.log(data._id.toString());
         var getCustomerJSON = {
+          id:data.id.toString(),
           name: data.name,
           surname: data.surname,
           email:data.email,
@@ -185,8 +207,36 @@ function createCustomer(nameInfo, surnameInfo, emailInfo, emailVerificationCodeI
 
     db.collection("customers").insertOne(customerObj, (error, data) => {
       if (err) throw err;
-      console.log("1 document inserted");
+      console.log("1 customer document inserted");
       client.close();
+    });
+  });
+};
+
+function createStudent(customerIdInfoExcel,fileExcelStudents,readType) {
+/*
+  var studentObj = {
+    customerId:customerIdInfo,
+    name: nameInfo,
+    surname: surnameInfo,
+    number: number,
+    grade:grade,
+    branch: branch,
+    gender: gender,
+    createdTime:Date(Date.now())
+  };
+*/
+  readExcelStudents(customerIdInfoExcel,fileExcelStudents,readType, function(studentObj){
+    console.log(studentObj);
+    mongoDb.connect(url, function (err, client) {
+      if (err) throw err;
+      var db = client.db("KelebekSistemi");
+  
+      db.collection("students").insertMany(studentObj, (error, data) => {
+        if (err) throw err;
+        console.log("1 student document inserted");
+        client.close();
+      });
     });
   });
 };
@@ -227,4 +277,51 @@ function verificationMailSend(verificationLink,verificationMail) {
       console.log('Email sent successfully');
     }
   });
+};
+
+function readExcelStudents(customerIdInfoExcel,fileExcelStudents,readType,callback){
+
+  var studentsJSON =[{}]; //Basic JSON for students save
+  var workbook = XLSX.read(fileExcel, {type:readType}); //Get excel
+  var sheet_name_list = workbook.SheetNames; //Get Sheet Names
+  var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]); //Convert to JSON
+  var excelRowsObjArr = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet_name_list]); // Calculate for excel row count
+  var excelRowCount = excelRowsObjArr.length; //Get Excel Row Count 
+  var currentBranch = "T.C.\\nMANİSA VALİLİĞİ\\nTurgutlu / Turgutlu Lisesi Müdürlüğü\\nAL -  9. Sınıf / A Şubesi (ALANI YOK) Sınıf Listesi "; //Default Branch Value (9 / A)
+  
+  for (let count = 3; count < excelRowCount; count++) { //Loop for all students
+    
+    var tempBranch = xlData[count]["T.C.\nMANİSA VALİLİĞİ\nTurgutlu / Turgutlu Lisesi Müdürlüğü\nAL -  9. Sınıf / A Şubesi (ALANI YOK) Sınıf Listesi "]; //Get branch and grade but complex
+   
+    if( tempBranch != undefined && tempBranch.toString().includes('T.C.')) // if "T.C." is changing it changes the variable
+      currentBranch = tempBranch;
+  
+    var branchAndGrade = currentBranch.split('- ')[1]; //Get branch and grade from complex string
+  
+    if(branchAndGrade!=undefined){
+      var studentGrade = branchAndGrade.split('.')[0]; // Grade parse from complex string
+      var studentBranch = branchAndGrade.split('/ ')[1].split(' ')[0]; // Branch parse from complex string
+    }
+  
+    var studentNumber = xlData[count].__EMPTY; //Get Student Number 
+    var studentName = xlData[count].__EMPTY_2; //Get Student Name 
+    var studentSurname = xlData[count].__EMPTY_6; //Get Student Surname 
+    var studentGender = xlData[count].__EMPTY_10; //Get Student Gender
+  
+    if(studentName == undefined || studentName == "Adı" ){
+      continue;
+    }
+  
+    studentsJSON[studentsJSON.length]={ // Students convert to JSON for database save
+      customerId:customerIdInfoExcel,
+      name:studentName,
+      surname:studentSurname,
+      number:studentNumber,
+      grade:studentGrade,
+      branch:studentBranch,
+      gender:studentGender,
+      createdTime:Date(Date.now)
+    }; 
+  };
+  return callback (studentsJSON);
 };

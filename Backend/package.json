@@ -16,6 +16,7 @@
     "mongodb": "^4.6.0",
     "nodemailer": "^6.7.5",
     "path": "^0.12.7",
-    "random-hash": "^4.0.1"
+    "random-hash": "^4.0.1",
+    "xlsx": "^0.18.5"
   }
 }
