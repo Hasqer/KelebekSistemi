@@ -119,21 +119,24 @@ app.get('/emailVerification/:emailVerificationCode', (req, res) => {
   });
 });
 
-app.post('/studentsCreate', (req, res) => {
+app.post('/createStudents', (req, res) => {
 
   const email = req.body.email;
   const password = req.body.password;
-  const studentsData = req.body.studentsData;
+  const studentsFile = req.body.studentsFile;
   const readFileType = req.body.readFileType;
+
+  if(email == undefined, password == undefined, studentsData == undefined, readFileType == undefined)
+    res.send({check:'false'});
 
   checkCustomer(email, password, function (lastResult) { //Check customer
     if (lastResult == 'true') {
       getCustomer(email,password,function(result){ //Get CustomerId
         const customerId = result.id;
-          createStudent(customerId,studentsData,readFileType,function(studentCreateStatus){ //Create it to the database with the customer id and students excel data
-            if(studentCreateStatus == 'true')
+          createStudent(customerId,studentsFile,readFileType,function(createStudentsStatus){ //Create it to the database with the customer id and students excel data
+            if(createStudentsStatus == 'true')
               res.send({check : 'true'});
-            else if (studentCreateStatus == 'false')
+            else if (createStudentsStatus == 'false')
               res.send({check : 'false'});
           });
       });
@@ -143,10 +146,6 @@ app.post('/studentsCreate', (req, res) => {
       res.send({check: 'false'});
     }
   });
-
-
-
-  
 });
 
 app.post('/getStudents', (req, res) => {
@@ -156,9 +155,14 @@ app.post('/getStudents', (req, res) => {
 
   checkCustomer(email, password, function (result) {
     if (result == 'true') {
-      getStudents('123456789',function(studentsJSON){
+      getCustomer(email, password, function (customerJSON) {
+        const customerId = customerJSON.id;
+      });
+
+      getStudents(customerId,function(studentsJSON){
         res.send(studentsJSON);
-        });
+      });
+
     } else if (result == 'false') {
       res.send({
         check: 'false'
@@ -167,11 +171,33 @@ app.post('/getStudents', (req, res) => {
   });
 });
 
+app.post('/createSchoolClass', (req, res) => {
 
+  const email = req.body.email;
+  const password = req.body.password;
+  const className = req.body.className;
+  const classArrangement = req.body.classArrangement;
+  const singleDesk= req.body.singleDesk;
 
+  if(email == undefined, password == undefined, className == undefined, classArrangement == undefined, singleDesk == undefined)
+    res.send({check:'false'});
 
-
-
+    checkCustomer(email, password, function (lastResult) { //Check customer
+      if (lastResult == 'true') {
+        getCustomer(email,password,function(customerJSON){ //Get CustomerId
+          const customerId = customerJSON.id;
+          createSchoolClass(customerId,className,classArrangement,singleDesk,function(createSchoolClassStatus){
+            if (createSchoolClassStatus=='true')
+              res.send({check: 'true'}); //Successful create school class
+            else (createSchoolClassStatus=='false')
+              res.send({check: 'false'}); //Failed create school class
+          });
+        })
+      }
+      else if (lastResult == 'false') {
+        res.send({check: 'false'});
+      }});
+});
 
 
 
@@ -220,7 +246,8 @@ function getCustomer(emailInfo, passwordInfo, callback) {
           emailVerificationBool:data.emailVerificationBool,
           paidCustomer:data.paidCustomer,
           licenseDeadline:data.licenseDeadline,
-          created_time: data.createdTime
+          createdTime: data.createdTime,
+          modifiedTime:data.modifiedTime
         };
         return callback(getCustomerJSON);
         client.close();
@@ -243,7 +270,9 @@ function createCustomer(nameInfo, surnameInfo, emailInfo, emailVerificationCodeI
     password: passwordInfo,
     paidCustomer: false,
     licenseDeadline: "",
-    createdTime: Date(Date.now())
+    createdTime: Date(Date.now()),
+    modifiedTime: Date(Date.now())
+
   };
 
   mongoDb.connect(url, function (err, client) {
@@ -428,3 +457,29 @@ function getStudents(customerIdInfo, callback) {
 };
 
 
+
+//    schoolClass Functions
+function createSchoolClass(customerIdInfo,classNameInfo, classArrangementInfo, singleDeskInfo,callback) {
+
+  var schoolClassObj = {
+    customerId:customerIdInfo, //String
+    className: classNameInfo, //String
+    classArrangement: classArrangementInfo, //JSON
+    singleDesk: singleDeskInfo, //Boolean
+    createdTime: Date(Date.now()), 
+    modifiedTime: Date(Date.now())
+  };
+
+  mongoDb.connect(url, function (err, client) {
+    if (err) throw err;
+    var db = client.db("KelebekSistemi");
+
+    db.collection("schoolClasses").insertOne(schoolClassObj, (error, data) => {
+      if (err) throw err;
+      if(err) return callback ('false');
+      else return callback ('true');
+      console.log("1 school class document inserted");
+      client.close();
+    });
+  });
+};
