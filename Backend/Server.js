@@ -258,16 +258,11 @@ function getCustomer(emailInfo, passwordInfo, callback) {
     }, (err, data) => {
       if (data) {
         console.log(data._id.toString());
-<<<<<<< HEAD
-        var getCustomerJSON = {
-          id:data.id,
-=======
 
 
 
         var getCustomerJSON = { //Creating result JSON 
           id:data.id.toString(),
->>>>>>> 4c49cfa03b13014f7ed4db95a6b10c957a08f171
           name: data.name,
           surname: data.surname,
           email:data.email,
