@@ -224,9 +224,6 @@ app.post('/createSchoolClass', (req, res) => {
 });
 
 
-
-
-
 //Functions
 //    Customer Functions
 function checkCustomer(emailInfo, passwordInfo, callback) {
@@ -262,7 +259,7 @@ function getCustomer(emailInfo, passwordInfo, callback) {
 
 
         var getCustomerJSON = { //Creating result JSON 
-          id:data.id,
+          id:data._id.toString(),
           name: data.name,
           surname: data.surname,
           email:data.email,
