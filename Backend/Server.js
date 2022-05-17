@@ -157,12 +157,11 @@ app.post('/getStudents', (req, res) => {
     if (result == 'true') {
       getCustomer(email, password, function (customerJSON) {
         const customerId = customerJSON.id;
+        getStudents(customerId,function(studentsJSON){
+          res.send(studentsJSON);
+        });
       });
-
-      getStudents(customerId,function(studentsJSON){
-        res.send(studentsJSON);
-      });
-
+  
     } else if (result == 'false') {
       res.send({
         check: 'false'
@@ -209,12 +208,10 @@ app.post('/createSchoolClass', (req, res) => {
     if (result == 'true') {
       getCustomer(email, password, function (customerJSON) {
         const customerId = customerJSON.id;
+        getSchoolClass(customerId,function(schoolClassesJSON){
+          res.send(schoolClassesJSON);
+        });
       });
-
-      getSchoolClass(customerId,function(schoolClassesJSON){
-        res.send(schoolClassesJSON);
-      });
-
     } else if (result == 'false') {
       res.send({
         check: 'false'
@@ -254,10 +251,6 @@ function getCustomer(emailInfo, passwordInfo, callback) {
       password: passwordInfo
     }, (err, data) => {
       if (data) {
-        console.log(data._id.toString());
-
-
-
         var getCustomerJSON = { //Creating result JSON 
           id:data._id.toString(),
           name: data.name,
