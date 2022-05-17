@@ -173,6 +173,7 @@ app.post('/getStudents', (req, res) => {
 
 app.post('/createSchoolClass', (req, res) => {
 
+
   const email = req.body.email;
   const password = req.body.password;
   const className = req.body.className;
@@ -199,6 +200,28 @@ app.post('/createSchoolClass', (req, res) => {
       }});
 });
 
+ app.post('/getSchoolClasses', (req, res) => {
+
+  const email = req.body.email;
+  const password = req.body.password;
+
+  checkCustomer(email, password, function (result) {
+    if (result == 'true') {
+      getCustomer(email, password, function (customerJSON) {
+        const customerId = customerJSON.id;
+      });
+
+      getSchoolClass(customerId,function(schoolClassesJSON){
+        res.send(schoolClassesJSON);
+      });
+
+    } else if (result == 'false') {
+      res.send({
+        check: 'false'
+      });
+    }
+  });
+});
 
 
 
@@ -480,6 +503,35 @@ function createSchoolClass(customerIdInfo,classNameInfo, classArrangementInfo, s
       else return callback ('true');
       console.log("1 school class document inserted");
       client.close();
+    });
+  });
+};
+
+function getSchoolClasses(customerIdInfo, callback) {
+
+  mongoDb.connect(url, function (err, client) {
+    const db = client.db("KelebekSistemi");
+    db.collection("schoolClasses").find({customerId:customerIdInfo}).toArray(function(err, data) {
+      if (data) {
+        /*
+        var getStudentsJSON = { //Creating result JSON 
+          name: data.name,
+          surname: data.surname,
+          number:data.number,
+          grade:data.grade,
+          branch:data.branch,
+          id:data._id.toString(),
+          customerId:data.customerId,
+          created_time: data.createdTime
+        };
+        */
+
+        return callback(data);
+        client.close();
+      } else {
+        callback('false');
+        client.close();
+      }
     });
   });
 };
