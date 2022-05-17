@@ -262,7 +262,7 @@ function getCustomer(emailInfo, passwordInfo, callback) {
 
 
         var getCustomerJSON = { //Creating result JSON 
-          id:data.id.toString(),
+          id:data.id,
           name: data.name,
           surname: data.surname,
           email:data.email,
