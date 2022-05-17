@@ -168,7 +168,7 @@ function getCustomer(emailInfo, passwordInfo, callback) {
       if (data) {
         console.log(data._id.toString());
         var getCustomerJSON = {
-          id:data.id.toString(),
+          id:data.id,
           name: data.name,
           surname: data.surname,
           email:data.email,

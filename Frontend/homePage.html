@@ -16,11 +16,11 @@
             <span>{{message.name != null ? ("Hoşgeldin "+message.name+" "+message.surname):""}}</span>
             <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
         </div>
-        <div class="Menupage">
-            <span @click="pageNumber=1;">Öğrenciler<div :style="pageNumber != 1 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
-            <span @click="pageNumber=2;">Sınıflar<div :style="pageNumber != 2 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
-            <span @click="pageNumber=3;">Sınavlar<div :style="pageNumber != 3 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
-            <span @click="pageNumber=4;">Karma Oluştur<div :style="pageNumber != 4 ? 'opacity: 0%;':'opacity: 100%;' "></div></span>
+        <div class="menuBox">
+            
+        </div>
+        <div class="contentBox">
+            
         </div>
     </div>
     <script src="public/script2.js"></script>

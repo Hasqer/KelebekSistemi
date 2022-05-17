@@ -3,8 +3,7 @@ var app = new Vue({
     data:{
         message:"",
         DragdownStyle:"",
-        DragdownMessage:"Dosya Seçilmedi",
-        pageNumber:1
+        DragdownMessage:"Dosya Seçilmedi"
     },
     methods:{
         cookieDelete(){
