@@ -1,9 +1,12 @@
 var app = new Vue({
     el:"#app",
     data:{
+        email:"",
+        password:"",
         message:"",
         DragdownStyle:"",
-        DragdownMessage:"Dosya Seçilmedi"
+        DragdownMessage:"Dosya Seçilmedi",
+        menuSelectionElement:0
     },
     methods:{
         cookieDelete(){
@@ -26,6 +29,9 @@ var app = new Vue({
             email:cookie[0][1],
             password:cookie[1][1]
         }
+        this.email = mydata.email;
+        this.password = mydata.password;
+        //müşteri doğrulama
         fetch("/getCustomer",{
             method:"post",
             body:JSON.stringify(mydata),
@@ -33,5 +39,18 @@ var app = new Vue({
         })
         .then(response => response.json())
         .then(json => this.message = json)
+        //öğürencileri çekme
+        try {
+            fetch("/getStudents",{
+                method:"post",
+                body:JSON.stringify(mydata),
+                headers:{"Content-type":"application/json"}
+            })
+            .then(response => response.json())
+            .then(json => console.log(json))
+        } catch (error) {
+            
+        }
+        
     }
 })
