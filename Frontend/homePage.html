@@ -25,7 +25,12 @@
         </div>
         <div class="contentBox">
             <div id="StudentsBox">
-                <div class="StudentsListLine" v-for="item in students">{{item.studentsName+" "+item.studentsSurname}}</div>
+                <div class="StudentsListLine" v-for="item in students">
+                    <div class="studentLineİtems">{{item.name+" "+item.surname}}</div>
+                    <div class="studentLineİtems">{{item.grade+" - "+item.branch}}</div>
+                    <div class="studentLineİtems">{{item.number}}</div>
+                    <div class="studentLineİtems"></div>
+                </div>
             </div>
         </div>
     </div>

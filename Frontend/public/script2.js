@@ -48,10 +48,14 @@ var app = new Vue({
                 headers:{"Content-type":"application/json"}
             })
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then(json => {
+                this.students = json;
+                console.log(json[0])
+            })
         } catch (error) {
             
         }
+        /*
         this.students=[
             {
                 customerid:"123",
@@ -86,7 +90,7 @@ var app = new Vue({
                 studentsID:"145",
                 studentsLevel:"11"
             }
-        ]
+        ]*/
         
     }
 })
