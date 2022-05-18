@@ -414,8 +414,8 @@ function readFromExcelStudents(customerIdInfoExcel,fileExcelStudents,readFileTyp
     var branchAndGrade = currentBranch.split('- ')[1]; //Get branch and grade from complex string
   
     if(branchAndGrade!=undefined){
-      var studentGrade = branchAndGrade.split('.')[0]; // Grade parse from complex string
-      var studentBranch = branchAndGrade.split('/ ')[1].split(' ')[0]; // Branch parse from complex string
+      var studentGrade = Number(branchAndGrade.split('.')[0].trim()); // Grade parse from complex string
+      var studentBranch = branchAndGrade.split('/ ')[1].split(' ')[0].trim(); // Branch parse from complex string
     }
   
     var studentNumber = xlData[count].__EMPTY; //Get Student Number 
