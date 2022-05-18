@@ -397,7 +397,7 @@ function createStudent(customerIdInfoExcel,fileExcelStudents,readFileType,callba
 function readFromExcelStudents(customerIdInfoExcel,fileExcelStudents,readFileType,callback){ //using by createStudent()
 
   var studentsJSON =[{}]; //Basic JSON for students save
-  var workbook = XLSX.read(fileExcel, {type:readFileType}); //Get excel
+  var workbook = XLSX.read(fileExcelStudents, {type:readFileType}); //Get excel
   var sheet_name_list = workbook.SheetNames; //Get Sheet Names
   var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]); //Convert to JSON
   var excelRowsObjArr = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet_name_list]); // Calculate for excel row count
@@ -459,7 +459,7 @@ function getStudents(customerIdInfo, callback) {
           created_time: data.createdTime
         };
         */
-
+        
         return callback(data);
         client.close();
       } else {
@@ -469,6 +469,7 @@ function getStudents(customerIdInfo, callback) {
     });
   });
 };
+
 
 
 
@@ -526,3 +527,4 @@ function getSchoolClasses(customerIdInfo, callback) {
     });
   });
 };
+
