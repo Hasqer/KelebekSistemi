@@ -139,7 +139,6 @@
 .StudentsListLine{
     height: 45px;
     border-bottom: 1px solid black;
-    padding: 10px;
     display: grid;
     align-items: center;
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -155,18 +154,34 @@
 #StudentsBox::-webkit-scrollbar {
     width: 8px;
   }
-  /* Track */
 #StudentsBox::-webkit-scrollbar-track {
     background: #f1f1f1; 
 }
-   
-  /* Handle */
 #StudentsBox::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 3px;
 }
-  
-  /* Handle on hover */
 #StudentsBox::-webkit-scrollbar-thumb:hover {
     background: #555; 
+}
+
+.StudentBoxButtons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 7px 0px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px black,inset 0px 0px 3px black;
+    color: white;
+    background-color: var(--clr);
+    margin: 3px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.StudentBoxButtons:hover{
+    box-shadow: 2px 2px 4px white,inset 0px 0px 3px white;
+    text-shadow: 0px 0px 5px white;
 }
