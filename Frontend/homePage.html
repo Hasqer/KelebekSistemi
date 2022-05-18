@@ -24,7 +24,9 @@
             <div class="menuSelection" :style="'top:'+menuSelectionElement+'px'"><div></div></div>
         </div>
         <div class="contentBox">
-
+            <div id="StudentsBox">
+                <div class="StudentsListLine" v-for="item in students">{{item.studentsName+" "+item.studentsSurname}}</div>
+            </div>
         </div>
     </div>
     <script src="public/script2.js"></script>

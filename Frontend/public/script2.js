@@ -6,7 +6,8 @@ var app = new Vue({
         message:"",
         DragdownStyle:"",
         DragdownMessage:"Dosya Seçilmedi",
-        menuSelectionElement:0
+        menuSelectionElement:0,
+        students:""
     },
     methods:{
         cookieDelete(){
@@ -40,7 +41,7 @@ var app = new Vue({
         .then(response => response.json())
         .then(json => this.message = json)
         //öğürencileri çekme
-        try {
+        try { 
             fetch("/getStudents",{
                 method:"post",
                 body:JSON.stringify(mydata),
@@ -51,6 +52,41 @@ var app = new Vue({
         } catch (error) {
             
         }
+        this.students=[
+            {
+                customerid:"123",
+                studentsName:"Ali",
+                studentsSurname:"Yaşar",
+                studentsNumber:"453",
+                studentBranch:"A",
+                studentsID:"12412321",
+                studentsLevel:"9"
+            },{
+                customerid:"321",
+                studentsName:"Mehmet",
+                studentsSurname:"Ilık",
+                studentsNumber:"564",
+                studentBranch:"C",
+                studentsID:"154623",
+                studentsLevel:"10"
+            },{
+                customerid:"231",
+                studentsName:"Selim",
+                studentsSurname:"Karaca",
+                studentsNumber:"312",
+                studentBranch:"C",
+                studentsID:"756",
+                studentsLevel:"11"
+            },{
+                customerid:"441",
+                studentsName:"Pelin",
+                studentsSurname:"Nasıroğlu",
+                studentsNumber:"398",
+                studentBranch:"E",
+                studentsID:"145",
+                studentsLevel:"11"
+            }
+        ]
         
     }
 })
