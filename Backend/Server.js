@@ -10,6 +10,8 @@ const nodeMailer = require('nodemailer');
 var XLSX = require("xlsx");
 var fs = require("fs");
 
+
+
 const { start } = require('repl');
 const { Console } = require('console');
 
@@ -19,7 +21,14 @@ const domain = "localhost";
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/public', express.static('./../Frontend/public'));
-app.listen(process.env.PORT || 80);
+
+
+//SSL Settings
+const https = require('https');
+const key = fs.readFileSync('./server-key.pem');
+const cert = fs.readFileSync('./server-cert.pem');
+const server = https.createServer({key: key, cert: cert }, app);
+server.listen(process.env.PORT || 443);
 
 //Database settings
 const url = 'mongodb+srv://admin:Password12@cluster0.uqoht.mongodb.net/test';
@@ -50,6 +59,7 @@ let mailTransporter = nodeMailer.createTransport({
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/../Frontend/index.html'));
 });
+
 
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));

@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "Server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,5 +17,7 @@
     "path": "^0.12.7",
     "random-hash": "^4.0.1",
     "xlsx": "^0.18.5"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
