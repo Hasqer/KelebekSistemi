@@ -42,8 +42,8 @@ var app = new Vue({
         })
         .then(response => response.json())
         .then(json => this.message = json)
+        .catch(deneme => console.log(deneme))
         //öğürencileri çekme
-        try { 
             fetch("/getStudents",{
                 method:"post",
                 body:JSON.stringify(mydata),
@@ -54,9 +54,7 @@ var app = new Vue({
                 this.students = json;
                 console.log(json[0])
             })
-        } catch (error) {
-            
-        }
+            .catch(deneme =>  console.log(deneme))
         /*
         this.students=[
             {
