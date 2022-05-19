@@ -230,13 +230,11 @@ function checkCustomer(emailInfo, passwordInfo, callback) {
       email: emailInfo,
       password: passwordInfo
     }, (err, data) => {
-
+      client.close();
       if (data) {
-        callback('true');
-        client.close();
+        return callback('true');
       } else {
-        callback('false');
-        client.close();
+        return callback('false');
       }
     });
   })
@@ -250,6 +248,7 @@ function getCustomer(emailInfo, passwordInfo, callback) {
       email: emailInfo,
       password: passwordInfo
     }, (err, data) => {
+      client.close();
       if (data) {
         var getCustomerJSON = { //Creating result JSON 
           id:data._id.toString(),
@@ -263,10 +262,8 @@ function getCustomer(emailInfo, passwordInfo, callback) {
           modifiedTime:data.modifiedTime
         };
         return callback(getCustomerJSON);
-        client.close();
       } else {
-        callback('false');
-        client.close();
+        return callback('false');
       }
     });
   })
@@ -293,9 +290,9 @@ function createCustomer(nameInfo, surnameInfo, emailInfo, emailVerificationCodeI
     var db = client.db("KelebekSistemi");
 
     db.collection("customers").insertOne(customerObj, (error, data) => {
+      client.close();
       if (err) throw err;
       console.log("1 customer document inserted");
-      client.close();
     });
   });
 };
@@ -309,12 +306,11 @@ function checkCustomerId(customerIdInfo, callback) {
     db.collection("customers").findOne({
       _id:customerIdInfoObject
     }, (err, data) => {
+      client.close();
       if (data) {
-        callback('true');
-        client.close();
+        return callback('true');
       } else {
-        callback('false');
-        client.close();
+        return callback('false');
       }
     });
   })
@@ -331,10 +327,11 @@ function emailVerificationCheck(emailVerificationCodeCheck, callback) {
         emailVerificationCode: "Verified"
       }
     }, (err, data) => {
+      client.close();
       if (data.matchedCount == "1")
-        callback(true);
+        return callback(true);
       else if (data.matchedCount == "0")
-        callback(false);
+        return callback(false);
     });
   })
 };
@@ -384,9 +381,9 @@ function createStudent(customerIdInfoExcel,fileExcelStudents,readFileType,callba
       var db = client.db("KelebekSistemi");
   
       db.collection("students").insertMany(studentObj, (error, data) => {
+        client.close();
         if (err) throw err;
         console.log("1 student document inserted");
-        client.close();
         if(err) return callback('false'); //For frontend negative warning
         else return callback('true'); //For frontend positive warning
       });
@@ -446,6 +443,7 @@ function getStudents(customerIdInfo, callback) {
   mongoDb.connect(url, function (err, client) {
     const db = client.db("KelebekSistemi");
     db.collection("students").find({customerId:customerIdInfo}).toArray(function(err, data) {
+      client.close();
       if (data) {
         /*
         var getStudentsJSON = { //Creating result JSON 
@@ -461,10 +459,8 @@ function getStudents(customerIdInfo, callback) {
         */
         
         return callback(data);
-        client.close();
       } else {
-        callback('false');
-        client.close();
+        return callback('false');
       }
     });
   });
@@ -490,11 +486,13 @@ function createSchoolClass(customerIdInfo,classNameInfo, classArrangementInfo, s
     var db = client.db("KelebekSistemi");
 
     db.collection("schoolClasses").insertOne(schoolClassObj, (error, data) => {
+      client.close();
       if (err) throw err;
       if(err) return callback ('false');
-      else return callback ('true');
-      console.log("1 school class document inserted");
-      client.close();
+      else {
+        console.log("1 school class document inserted");
+        return callback ('true')
+      };
     });
   });
 };
@@ -504,6 +502,7 @@ function getSchoolClasses(customerIdInfo, callback) {
   mongoDb.connect(url, function (err, client) {
     const db = client.db("KelebekSistemi");
     db.collection("schoolClasses").find({customerId:customerIdInfo}).toArray(function(err, data) {
+      client.close();
       if (data) {
         /*
         var getStudentsJSON = { //Creating result JSON 
@@ -519,10 +518,8 @@ function getSchoolClasses(customerIdInfo, callback) {
         */
 
         return callback(data);
-        client.close();
       } else {
-        callback('false');
-        client.close();
+        return callback('false');
       }
     });
   });
