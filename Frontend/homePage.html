@@ -11,17 +11,23 @@
 <body>
     <div id="app">
         <!--<button @click="cookieDelete()">Cookieyi Sil</button>  Burası Çıkış Yap kısmına dahil olacak ve normal sayfaya aktarılacak-->
-        <div class="bannerBox">
-            <span>Kelebek Sistemi</span>
-            <span>{{message.name != null ? ("Hoşgeldin "+message.name+" "+message.surname):""}}</span>
-            <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
-        </div>
+        
         <div class="menuBox">
-            <div class="menuButtons" @click="menuSelectionElement=0*70">Öğrenciler</div>
-            <div class="menuButtons" @click="menuSelectionElement=1*70">Sınıflar</div>
-            <div class="menuButtons" @click="menuSelectionElement=2*70">Sınavlar</div>
-            <div class="menuButtons" @click="menuSelectionElement=3*70">Kelebek Sistemi</div>
-            <div class="menuSelection" :style="'top:'+menuSelectionElement+'px'"><div></div></div>
+            <div class="menuLogo">
+                <img src="public/svg/logo1.svg" alt="">
+                <span :style="message.name == null ?'visibility: hidden;':''">{{message.name != null ? ("Hoşgeldin "+message.name[0].toUpperCase()+message.name.substring(1,message.name.length)+" "+message.surname[0].toUpperCase()+message.surname.substring(1,message.surname.length)):""}}</span>
+            </div>
+            <div class="menuButtonContainer">
+                <div class="menuButtons" :style="menuSelectionElement==0?'background-color:#1D1D1D':''" @click="menuSelectionElement=0*55">Öğrenciler</div>
+                <div class="menuButtons" :style="menuSelectionElement==55?'background-color:#1D1D1D':''" @click="menuSelectionElement=1*55">Sınıflar</div>
+                <div class="menuButtons" :style="menuSelectionElement==110?'background-color:#1D1D1D':''" @click="menuSelectionElement=2*55">Sınavlar</div>
+                <div class="menuButtons" :style="menuSelectionElement==165?'background-color:#1D1D1D':''" @click="menuSelectionElement=3*55">Kelebek Sistemi</div>
+                <div class="menuSelection" :style="'top:'+menuSelectionElement+'px'"><div></div></div>
+            </div>
+        </div>
+        <div class="bannerBox">
+            <span>{{menuSelectionElement == 0 ? "Öğrenciler":menuSelectionElement == 55 ? "Sınıflar":menuSelectionElement == 110 ?"Sınavlar":"Kelebek Sistemi"}}</span>
+            <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
         </div>
         <div class="contentBox">
             <div id="StudentsBox">
