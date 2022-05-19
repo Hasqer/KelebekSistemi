@@ -41,8 +41,13 @@
                     </div>
                     
                 </div>
-                <div class="StudentBoxEditor" :style="message.name == null ?'visibility: hidden;':''">
-                    <span >Upload</span>
+                <div class="StudentBoxEditor" :style="message.name == null ? 'visibility: hidden;':'height:'+studentControlBox+'px;'">
+                    <!--@click="if(studentControlBox==50)studentControlBox=250;else studentControlBox=50;" Açılır kapanır pencere-->
+                    <div class="changePageButtonContainer">
+                        <div class="changePageButton" @click="studentBoxActivePage--">{{'<'}}</div>
+                        <div class="studentBoxActivePage changePageButton">{{studentBoxActivePage}}</div>
+                        <div class="changePageButton" @click="studentBoxActivePage++">{{'>'}}</div>
+                    </div>
                 </div>
             </div>
         </div>

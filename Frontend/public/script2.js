@@ -7,7 +7,9 @@ var app = new Vue({
         DragdownStyle:"",
         DragdownMessage:"Dosya Seçilmedi",
         menuSelectionElement:0,
-        students:""
+        students:"",
+        studentControlBox:50,
+        studentBoxActivePage:1
     },
     methods:{
         cookieDelete(){
