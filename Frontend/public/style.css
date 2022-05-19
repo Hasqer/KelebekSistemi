@@ -5,17 +5,37 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+    background-color: #24272D;
+}
+
+hr{
+    background-color: black;
+    width: 85%;
+    height: 3px;
+    border-radius: 20px;
+}
+
 .loginBox{
-    width: 300px;
-    height: 350px;
-    border: 1px solid black;
+    background-color: #fff;
+    width: 350px;
+    height: 450px;
+    border: 3px solid #666;
     margin: auto;
     margin-top: 40px;
-    border-radius: 4px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px black;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 20px;
+}
+
+.rememberMeCheckBoxLabel{
+    cursor: pointer;
 }
 
 .SingContainer{
@@ -34,12 +54,32 @@
     width: 250px;
     border: 1px solid black;
     padding-left: 5px;
+    background-color: #24272D;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+}
+
+.button2{
+    user-select: none;
+    position: absolute;
+    bottom: 0px;
+    height: 35px;
+    width: 100%;
+    background-color: #24272D;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    box-shadow: 0px -1px 20px rgba(0, 0, 0, 0.5);
 }
 
 .SingContainer .button{
+    user-select: none;
     width: 250px;
     height: 30px;
-    margin-top: 30px;
     font-size: 20px;
     border: 1px solid black;
     cursor: pointer;
@@ -47,11 +87,26 @@
     align-items: center;
     justify-content: center;
     border-radius: 4px;
+    background-color: #24272D;
+    box-shadow: 2px 2px 5px black;
+    color: white;
 }
 
-
+/*
 .loginBox > span{
-    font-size: 30px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+*/
+.loginBox img{
+    border: 3px solid black;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    user-select: none;
     margin-top: 10px;
 }
 

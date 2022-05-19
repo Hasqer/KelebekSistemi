@@ -15,7 +15,7 @@
         <div class="menuBox">
             <div class="menuLogo">
                 <img src="public/svg/logo1.svg" alt="">
-                <span :style="message.name == null ?'visibility: hidden;':''">{{message.name != null ? ("Hoşgeldin "+message.name[0].toUpperCase()+message.name.substring(1,message.name.length)+" "+message.surname[0].toUpperCase()+message.surname.substring(1,message.surname.length)):""}}</span>
+                <span :style="message.name == null ?'visibility: hidden;':''">{{message.name != null ? ("Hoş geldin "+message.name[0].toUpperCase()+message.name.substring(1,message.name.length)+" "+message.surname[0].toUpperCase()+message.surname.substring(1,message.surname.length)):""}}</span>
             </div>
             <div class="menuButtonContainer">
                 <div class="menuButtons" :style="menuSelectionElement==0?'background-color:#1D1D1D':''" @click="menuSelectionElement=0*55">Öğrenciler</div>
@@ -39,6 +39,10 @@
                         <div class="StudentBoxButtons" style="--clr:blueviolet">Güncelle</div>
                         <div class="StudentBoxButtons" style="--clr:red">Sil</div>
                     </div>
+                    
+                </div>
+                <div class="StudentBoxEditor" :style="message.name == null ?'visibility: hidden;':''">
+                    <span >Upload</span>
                 </div>
             </div>
         </div>
