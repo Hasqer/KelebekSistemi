@@ -28,7 +28,7 @@ const https = require('https');
 const key = fs.readFileSync('./server-key.pem');
 const cert = fs.readFileSync('./server-cert.pem');
 const server = https.createServer({key: key, cert: cert }, app);
-server.listen(process.env.PORT || 443);
+app.listen(process.env.PORT || 80);
 
 //Database settings
 const url = 'mongodb+srv://admin:Password12@cluster0.uqoht.mongodb.net/test';
