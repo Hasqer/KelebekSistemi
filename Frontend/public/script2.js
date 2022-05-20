@@ -9,7 +9,10 @@ var app = new Vue({
         menuSelectionElement:0,
         students:"",
         studentControlBox:50,
-        studentBoxActivePage:1
+        studentBoxActivePage:1,
+        scrollLimit:50,
+        datalenght:0,
+        denemetext:""
     },
     methods:{
         cookieDelete(){
@@ -22,6 +25,18 @@ var app = new Vue({
         ExitAccount(){
             this.cookieDelete();
             window.location.href="/";
+        },
+        autoScroll(){//Otomatik scroll Yapmak için kullanılır
+            var myInterval = setInterval(() => {//sürekli bir tekrara giriyor
+                var a = document.querySelector("#StudentsBox");//scroll yapılacak divi görecek
+                this.denemetext = a.childElementCount +"/"+ this.students.length
+                if(a.scrollHeight - 2000 < a.scrollTop && a.offsetHeight < a.scrollHeight){//scroll varmı ve belirli limite ulaştımı
+                    this.scrollLimit+=50;//belirli limite ulaştıysa 50 veri daha ekleyecek
+                }
+                if(a.childElementCount > this.students.length && this.students.length != 0){//maximum limite ulaşıldıysa arttırmayı durduracak
+                    clearInterval(myInterval);
+                }
+            }, 300);
         }
     },
     created() {
@@ -52,7 +67,8 @@ var app = new Vue({
             .then(response => response.json())
             .then(json => {
                 this.students = json;
-                console.log(json[0])
+                this.autoScroll();
+                this.scrollLimit=50;
             })
             .catch(deneme =>  console.log(deneme))
         /*

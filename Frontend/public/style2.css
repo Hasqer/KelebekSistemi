@@ -268,3 +268,13 @@
     margin: 10px;
     border-radius: 3px;
 }
+
+.studentListStart{
+    width: auto;
+    height: 50px;
+    margin-top: -30px;
+    display: block;
+    background-color: gray;
+    position: sticky;
+    top: 0px;
+}

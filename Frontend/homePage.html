@@ -21,17 +21,19 @@
                 <div class="menuButtons" :style="menuSelectionElement==0?'background-color:#1D1D1D':''" @click="menuSelectionElement=0*55">Öğrenciler</div>
                 <div class="menuButtons" :style="menuSelectionElement==55?'background-color:#1D1D1D':''" @click="menuSelectionElement=1*55">Sınıflar</div>
                 <div class="menuButtons" :style="menuSelectionElement==110?'background-color:#1D1D1D':''" @click="menuSelectionElement=2*55">Sınavlar</div>
-                <div class="menuButtons" :style="menuSelectionElement==165?'background-color:#1D1D1D':''" @click="menuSelectionElement=3*55">Kelebek Sistemi</div>
+                <div class="menuButtons" :style="menuSelectionElement==165?'background-color:#1D1D1D':''" @click="menuSelectionElement=3*55;deneme123();" >Kelebek Sistemi</div>
                 <div class="menuSelection" :style="'top:'+menuSelectionElement+'px'"><div></div></div>
             </div>
         </div>
         <div class="bannerBox">
             <span>{{menuSelectionElement == 0 ? "Öğrenciler":menuSelectionElement == 55 ? "Sınıflar":menuSelectionElement == 110 ?"Sınavlar":"Kelebek Sistemi"}}</span>
+            <span>{{denemetext}}</span>
             <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
         </div>
         <div class="contentBox">
             <div id="StudentsBox">
-                <div class="StudentsListLine" v-for="item in students">
+                <span class="studentListStart">başlangıç</span>
+                <div class="StudentsListLine" v-for="item,index in students" v-if="index<scrollLimit">
                     <div class="studentLineİtems">{{item.name+" "+item.surname}}</div>
                     <div class="studentLineİtems">{{item.grade+" - "+item.branch}}</div>
                     <div class="studentLineİtems">{{item.number}}</div>
@@ -39,13 +41,8 @@
                         <div class="StudentBoxButtons" style="--clr:blueviolet">Güncelle</div>
                         <div class="StudentBoxButtons" style="--clr:red">Sil</div>
                     </div>
-                    
                 </div>
-                <div class="StudentBoxEditor" :style="message.name == null ? 'visibility: hidden;':'height:'+studentControlBox+'px;'">
-                    <!--@click="if(studentControlBox==50)studentControlBox=250;else studentControlBox=50;" Açılır kapanır pencere-->
-                    <div class="changePageButtonContainer">
-                    </div>
-                </div>
+                <span>bitiş</span>
             </div>
         </div>
     </div>
