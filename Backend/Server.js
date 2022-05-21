@@ -452,7 +452,7 @@ function getStudents(customerIdInfo, callback) {
 
   mongoDb.connect(url, function (err, client) {
     const db = client.db("KelebekSistemi");
-    db.collection("students").find({customerId:customerIdInfo}).toArray(function(err, data) {
+    db.collection("students").find({customerId:customerIdInfo}).sort({grade:1,branch:1}).toArray(function(err, data) {
       client.close();
       if (data) {
         /*
