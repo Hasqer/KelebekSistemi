@@ -63,7 +63,7 @@ var app = new Vue({
             if (this.UserInputEmail.length >= 3 && this.UserInputEmail.indexOf('@') != -1) {
                 if (this.UserInputpassword == this.UserInputpassword2) {
                     if (this.customerName.length >= 3 && this.customerSurname.length >= 3) {
-                        if (this.UserInputpassword.length >= 3) {
+                        if (this.UserInputpassword.length >= 6) {
 
                             var mydata = { // kullanıcı verilerinin hazırlanması
                                 emailInfo: this.UserInputEmail,

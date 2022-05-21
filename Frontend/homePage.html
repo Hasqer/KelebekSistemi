@@ -11,7 +11,6 @@
 <body>
     <div id="app">
         <!--<button @click="cookieDelete()">Cookieyi Sil</button>  Burası Çıkış Yap kısmına dahil olacak ve normal sayfaya aktarılacak-->
-        
         <div class="menuBox">
             <div class="menuLogo">
                 <img src="public/svg/logo1.svg" alt="">
@@ -21,19 +20,32 @@
                 <div class="menuButtons" :style="menuSelectionElement==0?'background-color:#1D1D1D':''" @click="menuSelectionElement=0*55">Öğrenciler</div>
                 <div class="menuButtons" :style="menuSelectionElement==55?'background-color:#1D1D1D':''" @click="menuSelectionElement=1*55">Sınıflar</div>
                 <div class="menuButtons" :style="menuSelectionElement==110?'background-color:#1D1D1D':''" @click="menuSelectionElement=2*55">Sınavlar</div>
-                <div class="menuButtons" :style="menuSelectionElement==165?'background-color:#1D1D1D':''" @click="menuSelectionElement=3*55;deneme123();" >Kelebek Sistemi</div>
+                <div class="menuButtons" :style="menuSelectionElement==165?'background-color:#1D1D1D':''" @click="menuSelectionElement=3*55;" >Kelebek Sistemi</div>
                 <div class="menuSelection" :style="'top:'+menuSelectionElement+'px'"><div></div></div>
             </div>
         </div>
         <div class="bannerBox">
             <span>{{menuSelectionElement == 0 ? "Öğrenciler":menuSelectionElement == 55 ? "Sınıflar":menuSelectionElement == 110 ?"Sınavlar":"Kelebek Sistemi"}}</span>
-            <span>{{denemetext}}</span>
+            <span>{{denemetext+" "+searchBranch}}</span>
             <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
         </div>
         <div class="contentBox">
             <div id="StudentsBox">
-                <span class="studentListStart">başlangıç</span>
-                <div class="StudentsListLine" v-for="item,index in students" v-if="index<scrollLimit">
+                <span class="studentListStart">
+                    <div class="studentListStartContainer">
+                        <input type="text" placeholder="Öğrenci adı veya numarası" v-model="search2" @keyup.enter="searchMethod">
+                        <span>Şubeler:
+                            <select name="" id="" v-model="searchBranch">
+                            <option value="Hepsi">Hepsi</option>
+                            <option :value="item" v-for="item,index in studentsBranch">
+                                {{item}}
+                            </option>
+                            </select>
+                            <div><img src="public/svg/search.svg" @click="searchMethod()"alt=""></div>
+                        </span>
+                    </div>
+                </span>
+                <div class="StudentsListLine" v-for="item,index in students" v-if="(search.length == 0 ? index<scrollLimit:true && (isNaN(search) ? item.name.toUpperCase().indexOf(search.toUpperCase()) != -1 : item.number==search)) && (searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (searchBranch).trim())">
                     <div class="studentLineİtems">{{item.name+" "+item.surname}}</div>
                     <div class="studentLineİtems">{{item.grade+" - "+item.branch}}</div>
                     <div class="studentLineİtems">{{item.number}}</div>
