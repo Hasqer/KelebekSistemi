@@ -62,7 +62,7 @@ app.get('/', function (req, res) {
 
 
 app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../Frontend/homepage.html'));
+  res.sendFile(path.join(__dirname + '/../Frontend/home-page.html'));
 });
 
 app.post('/checkCustomer', (req, res) => {
