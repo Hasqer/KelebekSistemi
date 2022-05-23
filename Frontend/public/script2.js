@@ -43,6 +43,7 @@ var app = new Vue({
             }, 300);
         },
         searchMethod(){
+            
             this.search = this.search2;
         },
         test123(item,index){
