@@ -46,6 +46,7 @@ var app = new Vue({
             this.search = this.search2;
         },
         test123(item,index){
+            
             //(search.length == 0 ? index<scrollLimit:true && (isNaN(search) ? item.name.toUpperCase().indexOf(search.toUpperCase()) != -1 : item.number==search)) && (searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (searchBranch).trim())
             return (this.search.length == 0 ? index<this.scrollLimit:true && (isNaN(this.search) ? item.name.toUpperCase().indexOf(this.search.toUpperCase()) != -1 : item.number==this.search)) && (this.searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (this.searchBranch).trim())
         }
