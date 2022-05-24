@@ -8,14 +8,14 @@ var app = new Vue({
         DragdownMessage: "Dosya Seçilmedi",
         menuSelectionElement: 0,
         students: "",
-        studentsBranch:[],
+        studentsBranch: [],
         studentControlBox: 50,
         studentBoxActivePage: 1,
         scrollLimit: 50,
         datalenght: 0,
-        search:"",
-        search2:"",
-        searchBranch:"Hepsi",
+        search: "",
+        search2: "",
+        searchBranch: "Hepsi",
         denemetext: ""
     },
     methods: {
@@ -30,25 +30,51 @@ var app = new Vue({
             this.cookieDelete();
             window.location.href = "/";
         },
-        autoScroll() {//Otomatik scroll Yapmak için kullanılır
-            var myInterval = setInterval(() => {//sürekli bir tekrara giriyor
-                var a = document.querySelector("#StudentsBox");//scroll yapılacak divi görecek
+        autoScroll() { //Otomatik scroll Yapmak için kullanılır
+            var myInterval = setInterval(() => { //sürekli bir tekrara giriyor
+                var a = document.querySelector("#StudentsBox"); //scroll yapılacak divi görecek
                 this.denemetext = a.childElementCount + "/" + this.students.length
-                if (a.scrollHeight - 2000 < a.scrollTop && a.offsetHeight < a.scrollHeight) {//scroll varmı ve belirli limite ulaştımı
-                    this.scrollLimit += 50;//belirli limite ulaştıysa 50 veri daha ekleyecek
+                if (a.scrollHeight - 2000 < a.scrollTop && a.offsetHeight < a.scrollHeight) { //scroll varmı ve belirli limite ulaştımı
+                    this.scrollLimit += 50; //belirli limite ulaştıysa 50 veri daha ekleyecek
                 }
-                if (a.childElementCount > this.students.length && this.students.length != 0) {//maximum limite ulaşıldıysa arttırmayı durduracak
+                if (a.childElementCount > this.students.length && this.students.length != 0) { //maximum limite ulaşıldıysa arttırmayı durduracak
                     clearInterval(myInterval);
                 }
             }, 300);
         },
-        searchMethod(){
-            
+        searchMethod() {
+
             this.search = this.search2;
         },
-        test123(item,index){
+        test123(item, index) {
+            var one = false,
+                two = false,
+                three = false;
+
             //(search.length == 0 ? index<scrollLimit:true && (isNaN(search) ? item.name.toUpperCase().indexOf(search.toUpperCase()) != -1 : item.number==search)) && (searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (searchBranch).trim())
-            return (this.search.length == 0 ? index<this.scrollLimit:true && (isNaN(this.search) ? item.name.toUpperCase().indexOf(this.search.toUpperCase()) != -1 : item.number==this.search)) && (this.searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (this.searchBranch).trim())
+
+            /*
+            if (this.search.length == 0) one = index < this.scrollLimit;
+            else one = true;*/
+
+/*
+            if (this.searchBranch == 'Hepsi' && this.scrollCount < this.scrollLimit) one = true;
+            else if (this.searchBranch != 'Hepsi') {
+                one = true;
+                this.scrollLimit=50;
+            }
+            else one = false;*/
+            one = true;
+            
+            
+            //sadece isim de arama yapıyor soy isimdede arama yapmalı
+            if (isNaN(this.search) && this.search.length > 0) two = (item.name.toLowerCase().indexOf(this.search.toLowerCase()) != -1 || item.name.toUpperCase().indexOf(this.search.toUpperCase()) != -1);
+            else if (this.search.length <= 0) two = true;
+            else two = (item.number == this.search);
+
+            if (this.searchBranch == 'Hepsi') three = true;
+            else three = (item.grade + ' - ' + item.branch).trim() == (this.searchBranch).trim();
+            return (one && two && three);
         }
     },
     created() {
@@ -63,19 +89,23 @@ var app = new Vue({
         this.password = mydata.password;
         //müşteri doğrulama
         fetch("/getCustomer", {
-            method: "post",
-            body: JSON.stringify(mydata),
-            headers: { "Content-type": "application/json" }
-        })
+                method: "post",
+                body: JSON.stringify(mydata),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
             .then(response => response.json())
             .then(json => this.message = json)
             .catch(deneme => console.log(deneme))
         //öğürencileri çekme
         fetch("/getStudents", {
-            method: "post",
-            body: JSON.stringify(mydata),
-            headers: { "Content-type": "application/json" }
-        })
+                method: "post",
+                body: JSON.stringify(mydata),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
             .then(response => response.json())
             .then(json => {
                 this.students = json;
@@ -83,17 +113,14 @@ var app = new Vue({
                 this.scrollLimit = 50;
                 this.students.forEach(element1 => {
                     var control = true;
-                    this.studentsBranch.forEach(element2 =>{
-                        if(element1.grade+" - "+element1.branch == element2){
+                    this.studentsBranch.forEach(element2 => {
+                        if (element1.grade + " - " + element1.branch == element2) {
                             control = false;
                         }
                     })
-                    if(control) this.studentsBranch[this.studentsBranch.length] = element1.grade+" - "+element1.branch;
+                    if (control) this.studentsBranch[this.studentsBranch.length] = element1.grade + " - " + element1.branch;
                 });
-                console.log(this.studentsBranch);
             })
             .catch(deneme => console.log(deneme))
     }
 })
-
-

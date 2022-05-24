@@ -45,7 +45,7 @@
                         </span>
                     </div>
                 </span>
-                <div class="StudentsListLine" v-for="item,index in students" v-if="(search.length == 0 ? index<scrollLimit:true && (isNaN(search) ? item.name.toUpperCase().indexOf(search.toUpperCase()) != -1 : item.number==search)) && (searchBranch == 'Hepsi' ? true: (item.grade+' - '+item.branch).trim() == (searchBranch).trim())">
+                <div class="StudentsListLine" v-for="item,index in students" v-if="test123(item,index)">
                     <div class="studentLineİtems">{{item.name+" "+item.surname}}</div>
                     <div class="studentLineİtems">{{item.grade+" - "+item.branch}}</div>
                     <div class="studentLineİtems">{{item.number}}</div>
