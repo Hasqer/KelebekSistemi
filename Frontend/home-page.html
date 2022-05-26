@@ -30,7 +30,7 @@
             <div class="ExitButton" @click="ExitAccount()"><img src="public/svg/setting.svg" alt=""></div>
         </div>
         <div class="contentBox">
-            <div id="StudentsBox">
+            <div id="StudentsBox"><!--StudentBox gizlendiği zaman Sayfa kontrolünüde gizle-->
                 <span class="studentListStart">
                     <div class="studentListStartContainer">
                         <input type="text" placeholder="Öğrenci adı veya numarası" v-model="search2" @keyup.enter="searchMethod">
@@ -54,7 +54,13 @@
                         <div class="StudentBoxButtons" style="--clr:red">Sil</div>
                     </div>
                 </div>
+                
                 <span>bitiş</span>
+            </div>
+            <div class="StudentBoxPageControl">
+                <img src="public/svg/leftPage.svg" alt="">
+                <div class="PageControlText">0</div>
+                <img src="public/svg/RightPage.svg" alt="">
             </div>
         </div>
     </div>

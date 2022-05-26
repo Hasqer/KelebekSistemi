@@ -43,7 +43,6 @@ var app = new Vue({
             }, 300);
         },
         searchMethod() {
-
             this.search = this.search2;
         },
         test123(item, index) {
@@ -68,7 +67,7 @@ var app = new Vue({
             
             
             //sadece isim de arama yapıyor soy isimdede arama yapmalı
-            if (isNaN(this.search) && this.search.length > 0) two = (item.name.toLowerCase().indexOf(this.search.toLowerCase()) != -1 || item.name.toUpperCase().indexOf(this.search.toUpperCase()) != -1);
+            if (isNaN(this.search) && this.search.length > 0) two = ((item.name+" "+item.surname).toLowerCase().indexOf(this.search.toLowerCase()) != -1 || (item.name+" "+item.surname).toUpperCase().indexOf(this.search.toUpperCase()) != -1);
             else if (this.search.length <= 0) two = true;
             else two = (item.number == this.search);
 
@@ -98,7 +97,7 @@ var app = new Vue({
             .then(response => response.json())
             .then(json => this.message = json)
             .catch(deneme => console.log(deneme))
-        //öğürencileri çekme
+        //öğrencileri çekme
         fetch("/getStudents", {
                 method: "post",
                 body: JSON.stringify(mydata),

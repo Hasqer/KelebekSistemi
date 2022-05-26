@@ -1,4 +1,4 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
     width: 100%;
@@ -7,27 +7,27 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.DragdownUploadFileBox{
+.DragdownUploadFileBox {
     width: 300px;
     height: 200px;
-    border: 1.5px  solid black;
+    border: 1.5px solid black;
     position: relative;
     border-radius: 3px;
     margin: 5px;
 }
 
-#studentExcelInputFile{
+#studentExcelInputFile {
     width: 100%;
     height: 100%;
     opacity: 0%;
     z-index: 100;
 }
 
-:root{
-    --menuButtonHeight:55px;
+:root {
+    --menuButtonHeight: 55px;
 }
 
-.DragdownDesingElement{
+.DragdownDesingElement {
     position: absolute;
     width: 250px;
     height: 100px;
@@ -37,14 +37,14 @@
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#app{
+#app {
     display: grid;
     grid-template-rows: 50px auto;
     grid-template-columns: 230px auto;
@@ -52,13 +52,13 @@
     height: 100vh;
 }
 
-.contentBox{
+.contentBox {
     background-color: #FFFFFF;
-    box-shadow:inset 0px 0px 5px black;
+    box-shadow: inset 0px 0px 5px black;
     position: relative;
 }
 
-.bannerBox{
+.bannerBox {
     /*background-color: #34389B;*/
     background-color: #00A7D7;
     display: flex;
@@ -68,7 +68,7 @@
     text-shadow: -3px 3px 5px black;
 }
 
-.menuBox{
+.menuBox {
     grid-row: span 2;
     /*background-color: rgba(0, 0, 255, 0.5);*/
     background-color: #24272D;
@@ -77,11 +77,11 @@
     position: relative;
 }
 
-.menuButtonContainer{
+.menuButtonContainer {
     position: relative;
 }
 
-.menuButtons{
+.menuButtons {
     display: flex;
     padding-left: 20px;
     align-items: center;
@@ -94,26 +94,27 @@
     box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5);*/
 }
 
-.menuSelection{
+.menuSelection {
     position: absolute;
     width: 100%;
     height: 100%;
     height: 55px;
     right: 0px;
     top: 55px;
-    transition: 0.1s;/*
+    transition: 0.1s;
+    /*
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);*/
 }
 
-.menuSelection div{
+.menuSelection div {
     height: 100%;
     width: 7px;
     position: relative;
     background-color: white;
 }
 
-.menuLogo{
+.menuLogo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,7 +122,7 @@
     padding: 10px;
 }
 
-.menuLogo span{
+.menuLogo span {
     border: 1px solid white;
     border-radius: 5px;
     font-weight: bold;
@@ -132,7 +133,7 @@
     align-items: center;
 }
 
-.menuLogo img{
+.menuLogo img {
     border: 3px solid white;
     border-radius: 50%;
     width: 100px;
@@ -140,14 +141,16 @@
     user-select: none;
 }
 
-.bannerBox span:nth-child(1){/*başlık css*/
+.bannerBox span:nth-child(1) {
+    /*başlık css*/
     font-size: 30px;
     color: white;
     display: inline-flex;
     align-items: center;
 }
 
-.bannerBox span:nth-child(2){/*hoşgeldin yazısı*/
+.bannerBox span:nth-child(2) {
+    /*hoşgeldin yazısı*/
     color: #ccc;
     font-size: 17px;
     display: inline-flex;
@@ -155,7 +158,7 @@
     float: right;
 }
 
-.ExitButton{
+.ExitButton {
     width: 37px;
     height: 37px;
     cursor: pointer;
@@ -166,7 +169,7 @@
 
 /*StudentBox stilleri*/
 
-#StudentsBox{
+#StudentsBox {
     width: 100%;
     height: 100%;
     /*height: calc(100% - 50px);*/
@@ -177,7 +180,7 @@
     /*box-shadow:inset 0px 0px 5px black;*/
 }
 
-.StudentsListLine{
+.StudentsListLine {
     height: 45px;
     width: calc(100% - 8px);
     border-bottom: 1px solid #ccc;
@@ -189,7 +192,7 @@
     grid-template-columns: 2fr 1fr 1fr 1fr;
 }
 
-.studentLineİtems{
+.studentLineİtems {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,25 +202,28 @@
 #StudentsBox::-webkit-scrollbar {
     width: 8px;
 }
+
 #StudentsBox::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
+
 #StudentsBox::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 3px;
 }
+
 #StudentsBox::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
 }
 
-.StudentBoxButtons{
+.StudentBoxButtons {
     display: flex;
     justify-content: center;
     align-items: center;
     height: auto;
     padding: 7px 0px;
     border-radius: 5px;
-    box-shadow: 2px 2px 4px black,inset 0px 0px 3px black;
+    box-shadow: 2px 2px 4px black, inset 0px 0px 3px black;
     color: white;
     background-color: var(--clr);
     margin: 3px;
@@ -226,18 +232,18 @@
     transition: 0.2s;
 }
 
-.StudentBoxButtons:hover{
-    box-shadow: 2px 2px 4px white,inset 0px 0px 3px white;
+.StudentBoxButtons:hover {
+    box-shadow: 2px 2px 4px white, inset 0px 0px 3px white;
     text-shadow: 0px 0px 5px white;
 }
 
-.StudentBoxEditor{
+.StudentBoxEditor {
     width: 90%;
     height: 50px;
     background-color: #24272D;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    position: sticky; 
+    position: sticky;
     bottom: -10px;
     margin: auto;
     transition: 0.3s;
@@ -246,7 +252,7 @@
     align-items: center;
 }
 
-.changePageButtonContainer{
+.changePageButtonContainer {
     width: 200px;
     height: 40px;
     border: 1px solid white;
@@ -257,7 +263,7 @@
     margin: 10px;
 }
 
-.changePageButton{
+.changePageButton {
     width: 27px;
     height: 27px;
     display: flex;
@@ -271,12 +277,13 @@
     border-radius: 3px;
 }
 
-.studentListStart{
+.studentListStart {
     width: calc(100%);
     height: 50px;
     margin-top: 10px;
     display: block;
-    background-color: #24272D;
+    /* background-color: #24272D; */
+    background-color: #00A7D7;
     position: sticky;
     top: 0px;
     color: white;
@@ -287,7 +294,7 @@
     padding: 10px;
 }
 
-.studentListStartContainer{
+.studentListStartContainer {
     width: inherit;
     height: 100%;
     display: flex;
@@ -296,49 +303,38 @@
     gap: 20px;
 }
 
-.studentListStartContainer span{
+.studentListStartContainer span {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
 }
-.studentListStartContainer input{
+
+.studentListStartContainer input {
     background-color: inherit;
     color: white;
     appearance: none;
+    border-color: rgba(0, 168, 215, 0.5);
     font-size: 17px;
     border-radius: 5px;
     padding-left: 15px;
 }
 
-.studentListStartContainer span select{
+.studentListStartContainer span select {
     background-color: inherit;
     color: white;
     font-size: 17px;
+    border-color: rgba(0, 168, 215, 0.5);
     border-radius: 5px;
     padding-left: 15px;
     width: calc(100% - 200px);
 }
 
-.studentListStartContainer span select option{
+.studentListStartContainer span select option {
     color: black;
 }
 
-.studentListStartContainer span select option::-webkit-scrollbar {
-    width: 8px;
-}
-.studentListStartContainer span select option::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
-.studentListStartContainer span select option::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-}
-.studentListStartContainer span select option::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
-
-.studentListStartContainer div{
+.studentListStartContainer div {
     width: 40px;
     height: 40px;
     border-radius: 10px;
@@ -349,3 +345,34 @@
     display: block;
 }
 
+
+.StudentBoxPageControl {
+    width: 100px;
+    height: 40px;
+    background-color: #24272D;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.StudentBoxPageControl img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.PageControlText{
+    font-size: 20px;
+    height: auto;
+    display: inline;
+    width: auto;
+    color: white;
+    font-weight: bold;
+}
